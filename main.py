@@ -42,8 +42,11 @@ def start_flask():
     t.daemon = True
     t.start()
 
-# Start Flask server
+# --- Start the Flask server in a thread ---
 start_flask()
 
-# --- Telegram Bot Polling (Run the bot continuously) ---
-bot.polling(none_stop=True)
+# --- Ensure bot polling runs only once ---
+if __name__ == "__main__":
+    # Start the bot polling (make sure it only runs once)
+    bot.remove_webhook()
+    bot.polling(none_stop=True)
