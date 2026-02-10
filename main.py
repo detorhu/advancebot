@@ -46,4 +46,14 @@ def send_welcome(message):
     bot.reply_to(message, "Hi! Your messages from the website will show here!")
 
 # --- Polling to keep bot running ---
-bot.polling()
+def run_bot():
+    bot.polling(none_stop=True)
+
+# --- Start Telegram bot in a separate thread ---
+bot_thread = Thread(target=run_bot)
+bot_thread.daemon = True
+bot_thread.start()
+
+# Keep the main thread alive
+while True:
+    pass
